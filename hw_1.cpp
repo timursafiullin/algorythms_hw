@@ -24,14 +24,43 @@ int findDuplicate(std::vector<int> a) {
 }
 
 // Задача 4
-std::vector<int> findIndexes(std::vector<int>& a, std::vector<int>& b)
-{
-    return std::vector<int>();
+std::vector<int> findIndexes(std::vector<int>& a, std::vector<int>& b) {
+    std::vector<int> result;
+    for (int i = 0; i < b.size(); ++i)
+    {
+        int left = 0;
+        int right = a.size();
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+
+            if (a[mid] < b[i])
+                left = mid + 1;
+            else
+                right = mid;
+
+        }
+        if (left < a.size() && a[left] == b[i])
+            result.push_back(left);
+        else
+            result.push_back(a.size());
+    }
+    return result;
 }
 
 int main()
 {
-    std::vector<int> nums = {2, 0, 4, 5, 6, 1, 0, 3};
-    std::cout << findDuplicate(nums) << std::endl;
+    // Задача 3
+    std::vector<int> nums = {2, 4, 4, 5, 6, 1, 0, 3};
+    std::cout << "Task 3: " << findDuplicate(nums) << std::endl;
+
+    // Задача 4
+    std::cout << "Task 4: ";
+    std::vector<int> a = {2, 4, 5, 7};
+    std::vector<int> b = {4, 6, 1};
+    std::vector<int> indexes = findIndexes(a, b);
+    for (auto element : indexes)
+        std::cout << element << " ";
+
     return 0;
 }
