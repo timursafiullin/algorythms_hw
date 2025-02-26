@@ -3,30 +3,30 @@
 
 // Задача 1
 double findMedianSortedArrays(std::vector<int>& nums1, std::vector<int>& nums2) {
-    int p1{1}, p2{1};
+    int p1{0}, p2{0};
     bool even = (nums1.size() + nums2.size()) % 2 == 0;
 
-    if (even)
+    if (!even)
     {
-        while (p1 + p2 < (nums1.size() + nums2.size()) / 2)
+        while (p1 + p2 + 2 < (nums1.size() + nums2.size()) / 2)
         {
-            if (nums1[p1-1] < nums1[p2-1])
+            if (nums1[p1] < nums2[p2])
                 ++p1;
             else
                 ++p2;
         }
-        return std::max(nums1[p1-1], nums2[p2-1]);
+        return std::max(nums1[p1], nums2[p2]);
     }
     else
     {
-        while (p1 + p2 <= (nums1.size() + nums2.size()) / 2)
+        while (p1 + p2 + 2 <= (nums1.size() + nums2.size()) / 2)
         {
-            if (nums1[p1-1] < nums1[p2-1])
+            if (nums1[p1] < nums2[p2])
                 ++p1;
             else
                 ++p2;
         }
-        return (nums1[p1-1] + nums2[p2-1]) / 2.0;
+        return (nums1[p1] + nums2[p2]) / 2.0;
     }
 }
 
@@ -78,8 +78,10 @@ std::vector<int> findIndexes(std::vector<int>& a, std::vector<int>& b) {
 int main()
 {
     // Задача 1
-    std::vector<int> nums1 = {1, 1, 2, 3, 5, 8, 13, 21};
-    std::vector<int> nums2 = {2, 3, 5, 7, 11, 13, 17, 19};
+    //std::vector<int> nums1 = {1, 1, 2, 3, 5, 8, 13, 21};
+    //std::vector<int> nums2 = {2, 3, 5, 7, 11, 13, 17, 19};
+    std::vector<int> nums1 = {1, 1, 2, 3, 4};
+    std::vector<int> nums2 = {2, 3, 5};
     std::cout << "Task 1: " << findMedianSortedArrays(nums1, nums2) << std::endl;
 
     // Задача 3
