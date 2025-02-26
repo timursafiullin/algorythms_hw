@@ -1,6 +1,17 @@
 #include <iostream>
 #include <vector>
 
+// Задача 1
+double findMedianSortedArrays(std::vector<int>& nums1, std::vector<int>& nums2) {
+    return .0;
+}
+
+// Задача 2
+unsigned int crazyFrog(std::vector<int>& axis)
+{
+    return 0;
+}
+
 // Задача 3
 int findDuplicate(std::vector<int> a) {
     for (int i = 0; i < a.size(); ++i) {
@@ -10,6 +21,12 @@ int findDuplicate(std::vector<int> a) {
         a[next] *= -1;
     }
     return -1;
+}
+
+// Задача 4
+std::vector<int> findIndexes(std::vector<int>& a, std::vector<int>& b)
+{
+    return std::vector<int>();
 }
 
 int main()
