@@ -30,21 +30,24 @@ std::vector<int> findIndexes(std::vector<int>& a, std::vector<int>& b) {
     {
         int left = 0;
         int right = a.size();
+        int mid = left + (right - left) / 2;
 
-        while (left < right) {
-            int mid = left + (right - left) / 2;
-
+        while (left < right)
+        {
             if (a[mid] < b[i])
                 left = mid + 1;
             else
                 right = mid;
 
+            mid = left + (right - left) / 2;
         }
-        if (left < a.size() && a[left] == b[i])
-            result.push_back(left);
-        else
+
+        if (a[left] < b[i])
             result.push_back(a.size());
+        else
+            result.push_back(left);
     }
+
     return result;
 }
 
@@ -57,7 +60,7 @@ int main()
     // Задача 4
     std::cout << "Task 4: ";
     std::vector<int> a = {2, 4, 5, 7};
-    std::vector<int> b = {4, 6, 1};
+    std::vector<int> b = {4, 6, 1, 8};
     std::vector<int> indexes = findIndexes(a, b);
     for (auto element : indexes)
         std::cout << element << " ";
