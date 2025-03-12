@@ -85,7 +85,7 @@ int main()
     std::cout << "Task 1: " << findMedianSortedArrays(nums1, nums2) << std::endl;
 
     // Задача 3
-    std::vector<int> nums = {2, 4, 4, 5, 6, 1, 0, 3};
+    std::vector<int> nums = {2, 4, 0, 7, 5, 6, 1, 0, 3};
     std::cout << "Task 3: " << findDuplicate(nums) << std::endl;
 
     // Задача 4
