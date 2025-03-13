@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 
 struct ListNode
 {
@@ -75,6 +76,7 @@ class Solution
             }
         }
 
+        // Task 4
         ListNode* deleteDuplicates(ListNode* head)
         {
             ListNode* temp = head;
@@ -93,6 +95,34 @@ class Solution
             return head;
         }
 
+        // Task 3
+        int largestRectangleArea(std::vector<int>& heights)
+        {
+            std::vector<int> stack = {-1};
+            int max_area = 0;
+            
+            for (int i = 0; i < heights.size(); ++i)
+            {
+                while (heights[i] < heights[stack.back()] && stack.back() != -1)
+                {
+                    int height = heights[stack.back()];
+                    stack.pop_back();
+                    int width = stack.back() == -1 ? i : i - stack.back() - 1;
+                    max_area = std::max(max_area, height * width);
+                }
+                stack.push_back(i);
+            }
+            
+            while (stack.back() != -1)
+            {
+                int height = heights[stack.back()];
+                stack.pop_back();
+                int width = stack.back() == -1 ? heights.size() : heights.size() - stack.back() - 1;
+                max_area = std::max(max_area, height * width);
+            }
+            
+            return max_area;        
+        }
 };
 
 void test_task2()
@@ -114,10 +144,10 @@ void test_task2()
 
 }
 
-void test_task3()
+void test_task4()
 {
     std::cout << std::endl;
-    std::cout << "[TEST]\tTask 3" << std::endl;
+    std::cout << "[TEST]\tTask 4" << std::endl;
     
     Solution solution;
 
@@ -181,9 +211,29 @@ void test_task5()
     std::cout << "]" << std::endl;
 }
 
+void test_task3()
+{
+    Solution solution;
+
+    std::cout << std::endl;
+    std::cout << "[TEST]\tTask 3" << std::endl;
+    
+    std::cout << "\tInput:\t[ 2 1 5 6 2 3 ]" << std::endl;
+    std::cout << "\tOutput:\t";
+    std::vector input1 = {2, 1, 5, 6, 2, 3};
+    std::cout << solution.largestRectangleArea(input1) << std::endl;
+
+    std::cout << std::endl << "\tInput:\t[ 1 2 4 6 3 1 ]" << std::endl;
+    std::cout << "\tOutput:\t";
+
+    std::vector input2 = {1, 2, 4, 6, 3, 1};
+    std::cout << solution.largestRectangleArea(input2) << std::endl;
+}
+
 int main()
 {
     test_task2();
     test_task3();
+    test_task4();
     test_task5();
 }
