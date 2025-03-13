@@ -75,6 +75,24 @@ class Solution
             }
         }
 
+        ListNode* deleteDuplicates(ListNode* head)
+        {
+            ListNode* temp = head;
+
+            if (head == nullptr || head->next == nullptr)
+                return head;
+
+            while (temp->next != nullptr)
+            {
+                if (temp->val == temp->next->val)
+                    temp->next = temp->next->next;
+                else
+                    temp = temp->next;
+            }
+
+            return head;
+        }
+
 };
 
 void test_task2()
@@ -86,7 +104,7 @@ void test_task2()
     std::string input1 = "///home/./etc/..//auto///get//...";
     std::string input2 = "/.../a/../b/c/../d/./";
 
-    std::cout << "\tInput:\t///home/./etc/..//auto///get" << std::endl;
+    std::cout << "\tInput:\t///home/./etc/..//auto///get//..." << std::endl;
     std::cout << "\tOutput:\t";
     std::cout << solution.simplifyPath(input1) << std::endl << std::endl;
 
@@ -96,11 +114,58 @@ void test_task2()
 
 }
 
+void test_task3()
+{
+    std::cout << std::endl;
+    std::cout << "[TEST]\tTask 3" << std::endl;
+    
+    Solution solution;
+
+    ListNode* input1 = new ListNode(1, new ListNode(1, new ListNode(1, new ListNode(2, new ListNode(3)))));
+    std::cout << "\tInput:\t[ 1 1 1 2 3 ]" << std::endl;
+    std::cout << "\tOutput:\t[ ";
+    ListNode* result1 = solution.deleteDuplicates(input1);
+    while (true)
+    {
+        std::cout << result1->val << " ";
+        result1 = result1->next;
+        if (result1 == nullptr)
+            break;
+    }
+    std::cout << "]" << std::endl;
+
+    ListNode* input2 = new ListNode(1, new ListNode(2, new ListNode(2, new ListNode(3, new ListNode(4)))));
+    std::cout << std::endl << "\tInput:\t[ 1 2 2 3 4 ]" << std::endl;
+    std::cout << "\tOutput:\t[ ";
+    ListNode* result2 = solution.deleteDuplicates(input2);
+    while (true)
+    {
+        std::cout << result2->val << " ";
+        result2 = result2->next;
+        if (result2 == nullptr)
+            break;
+    }
+    std::cout << "]" << std::endl;
+
+    ListNode* input3 = new ListNode(2, new ListNode(5, new ListNode(5, new ListNode(5, new ListNode(6, new ListNode(6, new ListNode(7, new ListNode(8, new ListNode(10, new ListNode(10))))))))));
+    std::cout << std::endl << "\tInput:\t[ 2 5 5 5 6 6 7 8 10 10 ]" << std::endl;
+    std::cout << "\tOutput:\t[ ";
+    ListNode* result3 = solution.deleteDuplicates(input3);
+    while (true)
+    {
+        std::cout << result3->val << " ";
+        result3 = result3->next;
+        if (result3 == nullptr)
+            break;
+    }
+    std::cout << "]" << std::endl;
+}
+
 void test_task5()
 {
     std::cout << std::endl;
     std::cout << "[TEST]\tTask 5" << std::endl;
-    std::cout << "\tInput:\t[1 1 3], [1 2 4]" << std::endl;
+    std::cout << "\tInput:\t[ 1 1 3 ], [ 1 2 4 ]" << std::endl;
     std::cout << "\tOutput:\t[ ";
     
     Solution solution;
@@ -119,5 +184,6 @@ void test_task5()
 int main()
 {
     test_task2();
+    test_task3();
     test_task5();
 }
