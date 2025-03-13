@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <vector>
 
 struct ListNode
 {
@@ -14,6 +14,48 @@ struct ListNode
 class Solution
 {
     public:
+        // Task 2
+        std::string simplifyPath(std::string path) {
+            std::string result = "";
+            std::string temp;
+            std::vector<std::string> stack;
+
+            int i = 0;
+            while(path[i] != NULL)
+            {
+                if (path[i] == '/')
+                {
+                    while (path[i] == '/')
+                        ++i;
+
+                    if (path[i] == NULL)
+                        break;
+
+                    if (temp == "..")
+                        stack.pop_back();
+                    else if (temp == ".") {}
+                    else
+                        stack.push_back(temp);
+                    temp = "";
+                }
+                temp += path[i];
+                ++i;
+                if (path[i] == NULL)
+                    stack.push_back(temp);
+            }
+
+
+            for (auto& elem : stack)
+            {
+                if (elem == "")
+                    continue;
+                result += "/" + elem;
+            }
+            
+            return result;
+        }
+
+        // Task 5
         ListNode* mergeTwoLists(ListNode* list1, ListNode* list2)
         {
             if (list1 == nullptr)
@@ -32,13 +74,36 @@ class Solution
                 return list2;
             }
         }
+
 };
 
-
-int main()
+void test_task2()
 {
-    Solution solution;
+    std::cout << std::endl;
+    std::cout << "[TEST]\tTask 2" << std::endl;
 
+    Solution solution;
+    std::string input1 = "///home/./etc/..//auto///get//...";
+    std::string input2 = "/.../a/../b/c/../d/./";
+
+    std::cout << "\tInput:\t///home/./etc/..//auto///get" << std::endl;
+    std::cout << "\tOutput:\t";
+    std::cout << solution.simplifyPath(input1) << std::endl << std::endl;
+
+    std::cout << "\tInput:\t/.../a/../b/c/../d/./" << std::endl;
+    std::cout << "\tOutput:\t";
+    std::cout << solution.simplifyPath(input2) << std::endl;
+
+}
+
+void test_task5()
+{
+    std::cout << std::endl;
+    std::cout << "[TEST]\tTask 5" << std::endl;
+    std::cout << "\tInput:\t[1 1 3], [1 2 4]" << std::endl;
+    std::cout << "\tOutput:\t[ ";
+    
+    Solution solution;
     ListNode* list1 = new ListNode(1, new ListNode(1, new ListNode(3)));
     ListNode* list2 = new ListNode(1, new ListNode(2, new ListNode(4)));
 
@@ -48,4 +113,11 @@ int main()
         std::cout << result->val << " ";
         result = result->next;
     }
+    std::cout << "]" << std::endl;
+}
+
+int main()
+{
+    test_task2();
+    test_task5();
 }
